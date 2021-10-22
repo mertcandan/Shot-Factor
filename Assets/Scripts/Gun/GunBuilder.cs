@@ -11,6 +11,9 @@ public class GunBuilder : MonoBehaviour
     public GameObject tip;
     public Camera mainCamera;
     public LayerMask gunExtensionLayer;
+    public Transform battleGunPlacement;
+    public GameObject gunBuildPhase;
+    public GameObject battlePhase;
     
     private List<GunExtension> _extensions;
     private bool _enabled;
@@ -104,16 +107,20 @@ public class GunBuilder : MonoBehaviour
 
     public void OnBattlePressed()
     {
-        
+        PrepareGun();
+        ActivateBattle();
     }
 
     void PrepareGun()
     {
-        
+        transform.SetPositionAndRotation(
+            battleGunPlacement.position,
+            battleGunPlacement.rotation);
     }
 
     void ActivateBattle()
     {
-        
+        gunBuildPhase.SetActive(false);
+        battlePhase.SetActive(true);
     }
 }

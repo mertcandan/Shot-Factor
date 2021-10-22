@@ -1592,7 +1592,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1131104548
 Transform:
   m_ObjectHideFlags: 0
@@ -2136,12 +2136,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1810707566}
   m_Layer: 0
-  m_Name: GunSelection
+  m_Name: GunBuild
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1810707566
 Transform:
   m_ObjectHideFlags: 0
@@ -2438,7 +2438,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4799613789974835612, guid: 1e727df66ddef8e4e89a68a56ad1a542, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5318883086693591846, guid: 1e727df66ddef8e4e89a68a56ad1a542, type: 3}
       propertyPath: m_RootOrder
@@ -2488,6 +2488,18 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 8612268586637794997, guid: 1e727df66ddef8e4e89a68a56ad1a542, type: 3}
+      propertyPath: battlePhase
+      value: 
+      objectReference: {fileID: 1131104547}
+    - target: {fileID: 8612268586637794997, guid: 1e727df66ddef8e4e89a68a56ad1a542, type: 3}
+      propertyPath: gunBuildPhase
+      value: 
+      objectReference: {fileID: 1810707565}
+    - target: {fileID: 8612268586637794997, guid: 1e727df66ddef8e4e89a68a56ad1a542, type: 3}
+      propertyPath: battleGunPlacement
+      value: 
+      objectReference: {fileID: 319707367}
     - target: {fileID: 8612268586637794998, guid: 1e727df66ddef8e4e89a68a56ad1a542, type: 3}
       propertyPath: bulletCounterText
       value: 
