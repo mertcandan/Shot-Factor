@@ -105,7 +105,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3070341098007632257}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.235, z: 1.052}
+  m_LocalPosition: {x: -0, y: 0.235, z: 1.057}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5318883086693591846}
@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 9115193741521151107}
   - component: {fileID: 6456854684638089289}
   - component: {fileID: 8612268586637794997}
+  - component: {fileID: 8612268586637794998}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -208,3 +209,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tip: {fileID: 3070341098007632257}
+  mainCamera: {fileID: 0}
+  gunExtensionLayer:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!114 &8612268586637794998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4799613789974835612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4bd5edbb91b9d846a09f36c44bd6b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletCounterText: {fileID: 0}
+  tip: {fileID: 8751314655625850038}
+  bulletPrefab: {fileID: 3461683174367865743, guid: 3f7fb1cbfd3c1d343b1d179e82106ccc, type: 3}

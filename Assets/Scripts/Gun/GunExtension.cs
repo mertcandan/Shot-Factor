@@ -1,19 +1,28 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+public enum OperationType
+{
+    Add,
+    Multiply
+}
 
 public class GunExtension : MonoBehaviour
 {
     [Header("Parameters")]
     public float movementDuration = 1f;
+    public OperationType operationType;
+    public int operand;
+    public int shotArea = 1;
     
     [Header("References")]
     public GunBuilder gunBuilder;
-    
+
     public bool canAdd;
     public bool isLast;
 
     private Vector3 _initialPosition;
+    
     
     void Start()
     {
@@ -22,12 +31,7 @@ public class GunExtension : MonoBehaviour
 
         _initialPosition = transform.position;
     }
-
-    void Update()
-    {
-        
-    }
-
+    
     public void OnSelected()
     {
         if (canAdd)
