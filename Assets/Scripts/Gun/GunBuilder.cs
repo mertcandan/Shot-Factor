@@ -45,6 +45,8 @@ public class GunBuilder : MonoBehaviour
             }
         }
     }
+    
+    #region Extensions
 
     public void AddExtension(GunExtension extension)
     {
@@ -99,12 +101,11 @@ public class GunBuilder : MonoBehaviour
             _gun.UpdateShotArea(1);
         }
     }
+    
+    #endregion
 
-    public void MovementDone()
-    {
-        _enabled = true;
-    }
-
+    #region Battle Transition
+    
     public void OnBattlePressed()
     {
         PrepareGun();
@@ -116,11 +117,19 @@ public class GunBuilder : MonoBehaviour
         transform.SetPositionAndRotation(
             battleGunPlacement.position,
             battleGunPlacement.rotation);
+        _gun.ActivateAim();
     }
 
     void ActivateBattle()
     {
         gunBuildPhase.SetActive(false);
         battlePhase.SetActive(true);
+    }
+    
+    #endregion
+    
+    public void MovementDone()
+    {
+        _enabled = true;
     }
 }
