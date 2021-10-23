@@ -14,6 +14,7 @@ public class GunBuilder : MonoBehaviour
     public Transform battleGunPlacement;
     public GameObject gunBuildPhase;
     public GameObject battlePhase;
+    public GameObject battleButton;
     
     private List<GunExtension> _extensions;
     private bool _enabled;
@@ -108,6 +109,7 @@ public class GunBuilder : MonoBehaviour
     
     public void OnBattlePressed()
     {
+        battleButton.SetActive(false);
         PrepareGun();
         ActivateBattle();
     }
@@ -118,6 +120,7 @@ public class GunBuilder : MonoBehaviour
             battleGunPlacement.position,
             battleGunPlacement.rotation);
         _gun.ActivateAim();
+        _gun.ShowBattleBulletCounter();
     }
 
     void ActivateBattle()

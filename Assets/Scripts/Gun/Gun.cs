@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -9,10 +10,13 @@ public class Gun : MonoBehaviour
 {
     [Header("References")]
     public TMP_Text bulletCounterText;
+    public TMP_Text battleBulletCounterText;
     public Transform tip;
     public Bullet bulletPrefab;
     public Camera mainCamera;
     public Image crosshair;
+
+    public LayerMask cameraRaycastLayer;
     
     [Header("Parameters")]
     public float aimSensitivity = 1f; 
@@ -21,9 +25,11 @@ public class Gun : MonoBehaviour
     private int _shotArea;
     private float _fireInterval;
     private float _elapsed;
-    
+
+    private bool _firing;
     private bool _canAim;
     private Vector3 _lastMousePosition;
+    private Vector3 _aimPosition;
     
     void Start()
     {
@@ -31,6 +37,7 @@ public class Gun : MonoBehaviour
         UpdateShotArea(1);
         _elapsed = 0;
         _canAim = false;
+        _firing = true;
     }
 
     void Update()
@@ -48,6 +55,11 @@ public class Gun : MonoBehaviour
     
     void Fire()
     {
+        if (!_firing)
+        {
+            return;
+        }
+        
         for (int i = 0; i < _shotArea; i++)
         {
             var position = CalculateBulletStartPosition(i);
@@ -130,10 +142,18 @@ public class Gun : MonoBehaviour
     #endregion
 
     #region Aim
+
+    public void ShowBattleBulletCounter()
+    {
+        battleBulletCounterText.text = $"{_bulletCounter}/sec";
+        battleBulletCounterText.gameObject.SetActive(true);
+        bulletCounterText.gameObject.SetActive(false);
+    }
     
     public void ActivateAim()
     {
         _canAim = true;
+        _firing = false;
     }
 
     void Aim()
@@ -148,19 +168,37 @@ public class Gun : MonoBehaviour
         else if (Input.GetMouseButton(0))
         {
             var diff = Input.mousePosition - _lastMousePosition;
-            Debug.Log("Touch diff: " + diff);
-            MoveCrosshair(diff);
+            Aim(diff);
             _lastMousePosition = Input.mousePosition;
-            //  Vector3 p = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane));
+            _firing = true;
+            
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            _firing = false;
         }
     }
 
-    void MoveCrosshair(Vector3 diff)
+    void Aim(Vector3 diff)
     {
-        crosshair.transform.position += diff;
-        Debug.Log(crosshair.transform.position);
+        _aimPosition = new Vector3(
+            Mathf.Clamp(crosshair.transform.position.x + diff.x, 0, Screen.width),
+            Mathf.Clamp(crosshair.transform.position.y + diff.y, 0, Screen.height),
+            0);
         
-        // TODO: clamp position
+        crosshair.transform.position = _aimPosition;
+        AimGun();
+    }
+
+    void AimGun()
+    {
+        RaycastHit hit;
+        Ray ray = mainCamera.ScreenPointToRay(new Vector3(_aimPosition.x, _aimPosition.y, 15));
+        
+        if (Physics.Raycast(ray, out hit)) {
+            transform.LookAt(hit.point);
+            Debug.DrawLine(mainCamera.transform.position, hit.point, Color.blue, 2f);
+        }
     }
     
     #endregion

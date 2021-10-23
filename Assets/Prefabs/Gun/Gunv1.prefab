@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 8612268586637794997}
   - component: {fileID: 8612268586637794998}
   m_Layer: 0
-  m_Name: Gun
+  m_Name: Gunv1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,6 +213,10 @@ MonoBehaviour:
   gunExtensionLayer:
     serializedVersion: 2
     m_Bits: 64
+  battleGunPlacement: {fileID: 0}
+  gunBuildPhase: {fileID: 0}
+  battlePhase: {fileID: 0}
+  battleButton: {fileID: 0}
 --- !u!114 &8612268586637794998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,5 +230,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletCounterText: {fileID: 0}
+  battleBulletCounterText: {fileID: 0}
   tip: {fileID: 8751314655625850038}
   bulletPrefab: {fileID: 3461683174367865743, guid: 3f7fb1cbfd3c1d343b1d179e82106ccc, type: 3}
+  mainCamera: {fileID: 0}
+  crosshair: {fileID: 0}
+  cameraRaycastLayer:
+    serializedVersion: 2
+    m_Bits: 16
+  aimSensitivity: 1
