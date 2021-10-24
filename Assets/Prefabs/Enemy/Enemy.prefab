@@ -572,7 +572,7 @@ MonoBehaviour:
   meshRenderer: {fileID: 3223054622070041694}
   agent: {fileID: 6848768804217511015}
   powerText: {fileID: 6191869322969952562}
-  enemyPower: 1
+  enemyPowerLevel: 1
   enemyColors:
   - {r: 0.9056604, g: 0.8211225, b: 0.07262372, a: 0}
   - {r: 0.9528302, g: 0.505341, b: 0.06741722, a: 0}
@@ -621,8 +621,8 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3223054622083703090}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1

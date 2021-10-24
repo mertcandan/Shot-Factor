@@ -13,18 +13,19 @@ public class Enemy : MonoBehaviour
     public TMP_Text powerText;
     
     [Header("Parameters")]
-    public int enemyPower = 1;
+    public int enemyPowerLevel = 1;
     public Color[] enemyColors;
 
     private int _currentPower;
+    private Spawner _spawner;
     
     private void Start()
     {
-        _currentPower = enemyPower;
-        meshRenderer.material.SetColor("_Color", enemyColors[enemyPower - 1]);
+        _currentPower = (int) Mathf.Pow(2f,enemyPowerLevel);
+        powerText.text = _currentPower.ToString();
+        meshRenderer.material.SetColor("_Color", enemyColors[enemyPowerLevel - 1]);
         transform.localScale = new Vector3(
-            0.5f + 0.5f * enemyPower, 0.5f + 0.5f * enemyPower, 0.5f + 0.5f * enemyPower);
-        powerText.text = enemyPower.ToString();
+            1f + 0.5f * enemyPowerLevel, 1f + 0.5f * enemyPowerLevel, 1f + 0.5f * enemyPowerLevel);
     }
 
     public void SetTarget(Vector3 target)
@@ -32,10 +33,16 @@ public class Enemy : MonoBehaviour
         agent.destination = target;
     }
 
-    public void Hit()
+    public void SetSpawner(Spawner spawner)
+    {
+        _spawner = spawner;
+    }
+
+    public void OnHitBullet()
     {
         _currentPower--;
-
+        powerText.text = _currentPower.ToString();
+        
         if (_currentPower <= 0)
         {
             Die();
@@ -44,7 +51,28 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
-        // TODO: destroy
-        // if power > 1 instantiate new ones with half power
+        if (enemyPowerLevel > 1)
+        {
+            enemyPowerLevel--;
+            Enemy right = Instantiate(
+                this,
+                transform.position + 0.5f * Vector3.right,
+                transform.rotation);
+            right.enemyPowerLevel = enemyPowerLevel;
+            right.SetTarget(agent.destination);
+            right.SetSpawner(_spawner);
+            _spawner.OnEnemySpawned();
+            
+            Enemy left = Instantiate(
+                this,
+                transform.position + 0.5f * Vector3.left,
+                transform.rotation);
+            left.enemyPowerLevel = enemyPowerLevel;
+            left.SetTarget(agent.destination);
+            left.SetSpawner(_spawner);
+            _spawner.OnEnemySpawned();
+        }
+        _spawner.OnEnemyDeath();
+        Destroy(gameObject);
     }
 }

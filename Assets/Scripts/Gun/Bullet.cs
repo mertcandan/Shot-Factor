@@ -29,4 +29,9 @@ public class Bullet : MonoBehaviour
     {
         transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
     }
+
+    public void OnHit()
+    {
+        Destroy(gameObject);
+    }
 }

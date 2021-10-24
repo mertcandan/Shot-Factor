@@ -16,7 +16,7 @@ public class Gun : MonoBehaviour
     public Camera mainCamera;
     public Image crosshair;
 
-    public LayerMask cameraRaycastLayer;
+    public LayerMask groundLayer;
     
     [Header("Parameters")]
     public float aimSensitivity = 1f; 
@@ -141,19 +141,35 @@ public class Gun : MonoBehaviour
     
     #endregion
 
+    public void Prepare(Transform placement)
+    {
+        transform.SetPositionAndRotation(
+            placement.position,
+            placement.rotation);
+        ActivateAim();
+        ShowBattleBulletCounter();
+        ShowCrosshair();
+    }
+    
     #region Aim
+    
 
-    public void ShowBattleBulletCounter()
+    void ShowBattleBulletCounter()
     {
         battleBulletCounterText.text = $"{_bulletCounter}/sec";
         battleBulletCounterText.gameObject.SetActive(true);
         bulletCounterText.gameObject.SetActive(false);
     }
     
-    public void ActivateAim()
+    void ActivateAim()
     {
         _canAim = true;
         _firing = false;
+    }
+
+    void ShowCrosshair()
+    {
+        crosshair.gameObject.SetActive(true);
     }
 
     void Aim()
@@ -195,7 +211,8 @@ public class Gun : MonoBehaviour
         RaycastHit hit;
         Ray ray = mainCamera.ScreenPointToRay(new Vector3(_aimPosition.x, _aimPosition.y, 15));
         
-        if (Physics.Raycast(ray, out hit)) {
+        if (Physics.Raycast(ray, out hit, 500f, groundLayer)) {
+            Debug.Log(hit.transform.name);
             transform.LookAt(hit.point);
             Debug.DrawLine(mainCamera.transform.position, hit.point, Color.blue, 2f);
         }

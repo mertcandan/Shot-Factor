@@ -15,14 +15,11 @@ public class GunExtension : MonoBehaviour
     public int operand;
     public int shotArea = 1;
     
-    [Header("References")]
-    public GunBuilder gunBuilder;
-
     public bool canAdd;
     public bool isLast;
 
     private Vector3 _initialPosition;
-    
+    private GunBuilder _gunBuilder;
     
     void Start()
     {
@@ -36,11 +33,11 @@ public class GunExtension : MonoBehaviour
     {
         if (canAdd)
         {
-            gunBuilder.AddExtension(this);
+            _gunBuilder.AddExtension(this);
         }
         else if (isLast)
         {
-            gunBuilder.RemoveLastExtension();
+            _gunBuilder.RemoveLastExtension();
         }
     }
 
@@ -69,6 +66,6 @@ public class GunExtension : MonoBehaviour
         }
 
         transform.position = position;
-        gunBuilder.MovementDone();
+        _gunBuilder.MovementDone();
     }
 }
