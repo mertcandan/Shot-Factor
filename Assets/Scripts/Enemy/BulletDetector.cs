@@ -14,6 +14,5 @@ public class BulletDetector : MonoBehaviour
         {
             GameManager.Instance.LevelLost();
         }
-        
     }
 }

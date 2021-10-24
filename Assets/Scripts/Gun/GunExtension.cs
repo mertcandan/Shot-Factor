@@ -27,6 +27,7 @@ public class GunExtension : MonoBehaviour
         isLast = false;
 
         _initialPosition = transform.position;
+        _gunBuilder = GameObject.FindWithTag(Tags.GUN).GetComponent<GunBuilder>();
     }
     
     public void OnSelected()

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     [Header("References")]
     public Gun gun;
+    public GunBuilder gunBuilder;
     public Camera mainCamera;
     public Transform battleGunPlacement;
     public Transform battleCameraPlacement;
@@ -15,6 +17,8 @@ public class GameManager : MonoBehaviour
     public GameObject battleButton;
     public GameObject levelLostPanel;
     public GameObject levelWonPanel;
+
+    private bool _levelInProgress;
     
     private void Awake()
     {
@@ -26,12 +30,23 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        _levelInProgress = true;
+    }
+
     #region Level Lost
     
     public void LevelLost()
     {
+        if (!_levelInProgress)
+        {
+            return;
+        }
         Debug.Log("Level Lost");
         levelLostPanel.SetActive(true);
+        gun.Deactivate();
+        _levelInProgress = false;
     }
     
     #endregion
@@ -40,8 +55,15 @@ public class GameManager : MonoBehaviour
 
     public void LevelWon()
     {
+        if (!_levelInProgress)
+        {
+            return;
+        }
+        
         Debug.Log("Level Won");
         levelWonPanel.SetActive(true);
+        gun.Deactivate();
+        _levelInProgress = false;
     }
     
     #endregion
@@ -80,6 +102,7 @@ public class GameManager : MonoBehaviour
 
     void PrepareGun()
     {
+        gunBuilder.MergeExtensions(gun.transform);
         gun.Prepare(battleGunPlacement);
     }
 

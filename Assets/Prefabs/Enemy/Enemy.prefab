@@ -569,6 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a645ad56711ec40970d113ad0418e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 3223054622083703091}
   meshRenderer: {fileID: 3223054622070041694}
   agent: {fileID: 6848768804217511015}
   powerText: {fileID: 6191869322969952562}

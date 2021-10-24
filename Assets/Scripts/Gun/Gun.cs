@@ -167,6 +167,12 @@ public class Gun : MonoBehaviour
         _firing = false;
     }
 
+    public void Deactivate()
+    {
+        _canAim = false;
+        _firing = false;
+    }
+
     void ShowCrosshair()
     {
         crosshair.gameObject.SetActive(true);
@@ -212,9 +218,7 @@ public class Gun : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(new Vector3(_aimPosition.x, _aimPosition.y, 15));
         
         if (Physics.Raycast(ray, out hit, 500f, groundLayer)) {
-            Debug.Log(hit.transform.name);
             transform.LookAt(hit.point);
-            Debug.DrawLine(mainCamera.transform.position, hit.point, Color.blue, 2f);
         }
     }
     

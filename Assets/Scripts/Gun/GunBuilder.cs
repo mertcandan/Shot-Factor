@@ -105,4 +105,12 @@ public class GunBuilder : MonoBehaviour
     {
         _enabled = true;
     }
+
+    public void MergeExtensions(Transform gun)
+    {
+        foreach (GunExtension gunExtension in _extensions)
+        {
+            gunExtension.transform.SetParent(gun);
+        }
+    }
 }

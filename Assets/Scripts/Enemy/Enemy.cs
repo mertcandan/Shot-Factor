@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     [Header("References")]
+    public Enemy enemyPrefab;
     public SkinnedMeshRenderer meshRenderer;
     public NavMeshAgent agent;
     public TMP_Text powerText;
@@ -18,12 +19,21 @@ public class Enemy : MonoBehaviour
 
     private int _currentPower;
     private Spawner _spawner;
+    private static readonly int MaterialColor = Shader.PropertyToID("_Color");
+    private bool _alive;
     
     private void Start()
     {
+        if (enemyPowerLevel > enemyColors.Length)
+        {
+            Debug.LogError("Enemy Power Level Exceeds " + enemyColors.Length);
+            return;
+        }
+
+        _alive = true;
         _currentPower = (int) Mathf.Pow(2f,enemyPowerLevel);
         powerText.text = _currentPower.ToString();
-        meshRenderer.material.SetColor("_Color", enemyColors[enemyPowerLevel - 1]);
+        meshRenderer.material.SetColor(MaterialColor, enemyColors[enemyPowerLevel - 1]);
         transform.localScale = new Vector3(
             1f + 0.5f * enemyPowerLevel, 1f + 0.5f * enemyPowerLevel, 1f + 0.5f * enemyPowerLevel);
     }
@@ -43,8 +53,9 @@ public class Enemy : MonoBehaviour
         _currentPower--;
         powerText.text = _currentPower.ToString();
         
-        if (_currentPower <= 0)
+        if (_currentPower <= 0 && _alive)
         {
+            _alive = false;
             Die();
         }
     }
@@ -53,26 +64,9 @@ public class Enemy : MonoBehaviour
     {
         if (enemyPowerLevel > 1)
         {
-            enemyPowerLevel--;
-            Enemy right = Instantiate(
-                this,
-                transform.position + 0.5f * Vector3.right,
-                transform.rotation);
-            right.enemyPowerLevel = enemyPowerLevel;
-            right.SetTarget(agent.destination);
-            right.SetSpawner(_spawner);
-            _spawner.OnEnemySpawned();
-            
-            Enemy left = Instantiate(
-                this,
-                transform.position + 0.5f * Vector3.left,
-                transform.rotation);
-            left.enemyPowerLevel = enemyPowerLevel;
-            left.SetTarget(agent.destination);
-            left.SetSpawner(_spawner);
-            _spawner.OnEnemySpawned();
+            _spawner.SpawnHalved(GetInstanceID(),enemyPowerLevel - 1, transform.position, transform.rotation);
         }
-        _spawner.OnEnemyDeath();
+        _spawner.OnEnemyDeath(GetInstanceID());
         Destroy(gameObject);
     }
 }
