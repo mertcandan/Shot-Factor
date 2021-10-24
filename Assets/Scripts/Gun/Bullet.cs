@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    [Header("References")]
+    public GameObject bulletExplosion;
+    
     [Header("Parameters")]
     public float speed = 5f;
     public float destroyAfter = 3f;
@@ -32,6 +35,7 @@ public class Bullet : MonoBehaviour
 
     public void OnHit()
     {
+        Destroy(Instantiate(bulletExplosion, transform.position, Quaternion.identity), 0.5f);
         Destroy(gameObject);
     }
 }

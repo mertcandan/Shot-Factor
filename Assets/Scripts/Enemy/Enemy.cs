@@ -8,10 +8,10 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     [Header("References")]
-    public Enemy enemyPrefab;
     public SkinnedMeshRenderer meshRenderer;
     public NavMeshAgent agent;
     public TMP_Text powerText;
+    public GameObject deathExplosion;
     
     [Header("Parameters")]
     public int enemyPowerLevel = 1;
@@ -67,6 +67,7 @@ public class Enemy : MonoBehaviour
             _spawner.SpawnHalved(GetInstanceID(),enemyPowerLevel - 1, transform.position, transform.rotation);
         }
         _spawner.OnEnemyDeath(GetInstanceID());
+        Destroy(Instantiate(deathExplosion, transform.position, Quaternion.identity), 0.5f);
         Destroy(gameObject);
     }
 }

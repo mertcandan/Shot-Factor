@@ -569,10 +569,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a645ad56711ec40970d113ad0418e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 3223054622083703091}
   meshRenderer: {fileID: 3223054622070041694}
   agent: {fileID: 6848768804217511015}
   powerText: {fileID: 6191869322969952562}
+  deathExplosion: {fileID: 130848, guid: d16221e794fe16e4e8994a7f8c770561, type: 3}
   enemyPowerLevel: 1
   enemyColors:
   - {r: 0.9056604, g: 0.8211225, b: 0.07262372, a: 0}
