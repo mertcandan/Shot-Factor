@@ -11,11 +11,11 @@ public class GunBuilder : MonoBehaviour
     public GameObject tip;
     public Camera mainCamera;
     public LayerMask gunExtensionLayer;
+    public int maxExtensionCount = 3;
     
     private List<GunExtension> _extensions;
     private bool _enabled;
     private Gun _gun;
-    
 
     void Start()
     {
@@ -47,6 +47,11 @@ public class GunBuilder : MonoBehaviour
 
     public void AddExtension(GunExtension extension)
     {
+        if (_extensions.Count == maxExtensionCount)
+        {
+            return;
+        }
+        
         _enabled = false;
         int count = _extensions.Count;
         if (count > 0)
